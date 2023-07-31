@@ -1,9 +1,15 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * We recommend including the built version of this JavaScript file
- * (and its CSS file) in your base layout (base.html.twig).
- */
+import React from "react";
+import ReactDOM from "react-dom";
+import App from "./js/App";
+import Password from "./js/PasswordToggle";
 
-// any CSS you import will output into a single css file (app.css in this case)
-import './styles/app.css';
+const root = document.getElementById("root");
+if (root) {
+  const reactRoot = ReactDOM.createRoot(root);
+  reactRoot.render(<App />);
+}
+const password = document.getElementById("password");
+if (password) {
+  const reactRoot = ReactDOM.createRoot(password);
+  reactRoot.render(<Password />);
+}

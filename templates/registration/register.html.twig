@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-lg rounded">
+                <div class="card-header text-center bg-primary text-white">
+                    <img src="path_to_your_logo.png" alt="Logo" class="mb-3 img-fluid" style="width: 100px;">
+                    <h1>Register</h1>
+                </div>
+                <div class="card-body">
+                    {{ form_errors(registrationForm) }}
+
+                    {{ form_start(registrationForm, {'attr': {'class': 'form'}}) }}
+                        {{ form_row(registrationForm.email, {'attr': {'class': 'form-control mb-3'}}) }}
+                        <div class="password-field mb-3 position-relative">
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Password',
+                                attr: {'class': 'form-control'}
+                            }) }}
+                             <div id="password"></div>
+                            {# <div id="password-toggle" class="position-absolute top-50 end-0 translate-middle-y pe-2"></div> #}
+                        </div>
+                        {{ form_row(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input mb-3'}}) }}
+
+                        <button type="submit" class="btn btn-success">Register</button>
+                    {{ form_end(registrationForm) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
