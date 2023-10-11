@@ -15,12 +15,20 @@ security:
     main:
       lazy: true
       provider: users_in_memory
+      entry_point: App\Security\UsersAuthenticator # Ajoutez cette ligne
       # custom_authenticator: App\Security\RegisterAuthenticator
       form_login:
         login_path: app_login
         check_path: app_login
       logout:
         path: app_logout
+      custom_authenticator: App\Security\UsersAuthenticator
+
+      remember_me:
+        secret: "%kernel.secret%"
+        lifetime: 604800
+        path: /
+        always_remember_me: true
 
   access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }
