@@ -18,9 +18,11 @@
         </thead>
         <tbody>
         {% for vehicule in vehicules %}
+   
             <tr>
                 <td>{{ vehicule.id }}</td>
-                 <td><img src="{{ vehicule.ImageName}}"/></td>
+                 <td><img src="{{ asset('images/vehicule/' ~ vehicule.imageName) }}" alt="Véhicule Image"/></td>
+                 {# <td><img src="{{asset('images/vehicule/'.vehicule.ImageName)}}"/></td> #}
                 <td>{{ vehicule.marque }}</td>
                 <td>{{ vehicule.annee }}</td>
                 <td>{{ vehicule.satut }}</td>
