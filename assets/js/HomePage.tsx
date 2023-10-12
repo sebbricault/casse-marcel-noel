@@ -5,16 +5,8 @@ import "@fortawesome/fontawesome-free/css/all.min.css";
 
 const HomePage: React.FC = () => {
   return (
-    <div className="container-fluid bg-light py-5">
-      <header className="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom">
-        <a
-          href="/"
-          className="d-flex align-items-center text-dark text-decoration-none"
-        >
-          <i className="fas fa-car-side fa-2x mr-2"></i>
-          <span className="fs-4">Casse Automobile</span>
-        </a>
-      </header>
+    <div className="container-fluid  py-5">
+      <header className="d-flex justify-content-between align-items-center py-3 mb-4 border-bottom"></header>
       <main>
         <div className="row">
           <div className="col-md-6 mb-4">

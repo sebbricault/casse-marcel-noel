@@ -29,7 +29,12 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
     public function authenticate(Request $request): Passport
     {
         $email = $request->request->get('email', '');
-
+     
+        $password = $request->request->get('password', '');
+        
+        // Pour déboguer
+    
+ 
         $request->getSession()->set(Security::LAST_USERNAME, $email);
 
         return new Passport(
@@ -40,6 +45,7 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
                 new RememberMeBadge(),
             ]
         );
+        
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
@@ -47,6 +53,8 @@ class UsersAuthenticator extends AbstractLoginFormAuthenticator
         if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
         }
+      
+
 
         // For example:
         return new RedirectResponse($this->urlGenerator->generate('app_home'));

@@ -7,32 +7,30 @@ security:
       entity:
         class: App\Entity\User
         property: email
-    # used to reload user from session & other features (e.g. switch_user)
   firewalls:
     dev:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
     main:
       lazy: true
-      provider: users_in_memory
-      entry_point: App\Security\UsersAuthenticator # Ajoutez cette ligne
-      # custom_authenticator: App\Security\RegisterAuthenticator
-      form_login:
-        login_path: app_login
-        check_path: app_login
+      provider: app_user_provider
+      entry_point: App\Security\UsersAuthenticator
+      custom_authenticator: App\Security\UsersAuthenticator # Corrigez l'indentation ici
+      # form_login:
+      #   login_path: app_login
+      #   check_path: app_login
       logout:
         path: app_logout
-      custom_authenticator: App\Security\UsersAuthenticator
-
-      remember_me:
-        secret: "%kernel.secret%"
-        lifetime: 604800
-        path: /
-        always_remember_me: true
-
+      # remember_me:
+      #   secret: "%kernel.secret%"
+      #   lifetime: 604800
+      #   path: /
+      #   always_remember_me: true
   access_control:
     # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/profile, roles: ROLE_USER }
+    # - { path: ^/, roles: ROLE_USER }
+    # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
 
 when@test:
   security:
