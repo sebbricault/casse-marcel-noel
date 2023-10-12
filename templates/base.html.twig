@@ -15,50 +15,77 @@
 
     
         {% endblock %}
+    
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Personnalisation de la barre de navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+ .custom-navbar {
+            background:  linear-gradient(to right, #1c2942, #2c3a62);
+            /* Vous pouvez ajuster les couleurs pour obtenir la teinte désirée */
+        }
+
+/* Style des liens de la barre de navigation */
+.navbar .nav-link {
+    color: white;
+    transition: color 0.3s ease-in-out;
+}
+
+.navbar .nav-link:hover {
+    color: #ffcc00;
+}
+
+/* Style du bouton de déconnexion */
+.navbar .nav-link.text-light:hover {
+    color: #ffcc00;
+}
+
+    </style>
     </head>
     <header>
-    <nav class="navbar navbar-expand-md navbar-ligth bg-light">
-    <div class="d-flex align-items-center justify-content-around col-md-3">
-   <img src="{{ asset('images/Marcel_Noel.png') }}" alt="Mon Image" width="80em" >
-        <a class="navbar-brand text-dark ml-2 mr-2" href="{{path('app_home')}}">Casse marcel noel</a>
-</div>
-        {# <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button> #}
-        <div class="collapse navbar-collapse mx-auto" id="navbarCollapse">
-            <ul class="navbar-nav mr-auto mx-auto">
-                <li class="nav-item active">
-                    <a class="nav-link text-dark" href="{{path('app_vehicule_index')}}">Nos véhicules</a>
-                </li>
-                 <li class="nav-item active">
-                    <a class="nav-link text-dark" href="">Pièces auto</a>
-                </li>
-                {% if is_granted('ROLE_ADMIN') %}
-                <li class="nav-item active">
-                    <a class="nav-link text-dark" href="">Admin</a>
-                </li> 
-                {% endif %}
-                <li class="nav-item text-dark active">
-                    <a class="nav-link text-dark" href="}">Documents</a>
-                </li>
-                
-            </ul>
-        
-             {% if app.user %} 
-            <div class="text-light d-flex flex-row col-md-5 justify-content-around">
-             <a href="" class="nav-link text-dark">Mon compte <small>({{app.user.email}})</small> </a>  <a href="{{path('app_logout')}}" class="nav-link text-dark">Déconnexion</a>  
-             </div>
-             {% else %} 
-             <div class="text-light d-flex flex-row">
-            <a href="{{path('app_login')}}" class="nav-link text-dark mr-2">Connexion </a>  |  <a href="{{path('app_register')}}" class="nav-link text-dark ">Inscription</a>  
-           </div>
-            {% endif %} 
-           <div class="text-light d-flex flex-row">
-            {# <a href="{{path('app_panier')}}" class="nav-link text-light"><i class="fa-solid fa-cart-shopping text-light"></i></a>   #}
-           </div>
+    <nav class="navbar navbar-expand-lg navbar-dark custom-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="{{ path('app_home') }}">
+                <img src="{{ asset('images/Marcel_Noel.png') }}" alt="Logo" width="80" class="mr-2">
+                Casse Marcel Noel
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_vehicule_index') }}">Nos véhicules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Pièces auto</a>
+                    </li>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Admin</a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Documents</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    {% if app.user %}
+                        <a href="#" class="nav-link text-light">Mon compte <small>({{ app.user.email }})</small></a>
+                        <a href="{{ path('app_logout') }}" class="nav-link text-light">Déconnexion</a>
+                    {% else %}
+                        <a href="{{ path('app_login') }}" class="nav-link text-light">Connexion</a>
+                        <span class="nav-link text-light">|</span>
+                        <a href="{{ path('app_register') }}" class="nav-link text-light">Inscription</a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </nav>
 </header>
+      
     <body>
     <div class="container">
         {% block body %}{% endblock %}

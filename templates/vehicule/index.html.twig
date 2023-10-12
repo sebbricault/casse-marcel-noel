@@ -4,8 +4,8 @@
 
 {% block body %}
     <h1>Vehicule index</h1>
-
-    <table class="table">
+<div id='vehicules'></div>
+    {# <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -23,7 +23,7 @@
                 <td>{{ vehicule.id }}</td>
                  <td><img src="{{ asset('images/vehicule/' ~ vehicule.imageName) }}" alt="Véhicule Image"/></td>
                  {# <td><img src="{{asset('images/vehicule/'.vehicule.ImageName)}}"/></td> #}
-                <td>{{ vehicule.marque }}</td>
+                {# <td>{{ vehicule.marque }}</td>
                 <td>{{ vehicule.annee }}</td>
                 <td>{{ vehicule.satut }}</td>
                 <td>
@@ -37,7 +37,7 @@
             </tr>
         {% endfor %}
         </tbody>
-    </table>
+    </table> #}
 
     <a href="{{ path('app_vehicule_new') }}">Create new</a>
 {% endblock %}

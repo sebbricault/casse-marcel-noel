@@ -1,0 +1,37 @@
+/* .homepage-container {
+  background-color: #f0f0f0;
+} */
+
+.custom-card {
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.custom-card:hover {
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+}
+
+.custom-card-body {
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+}
+
+.custom-icon {
+  font-size: 2rem;
+  color: black;
+}
+
+.custom-btn {
+  background-color: #2c3a62 !important;
+  color: #fff !important;
+  border: none !important;
+  border-radius: 5px !important;
+  transition: background-color 0.3s ease-in-out !important;
+}
+
+.custom-btn:hover {
+  background-color: #1c2942 !important;
+  color: #fff !important;
+}

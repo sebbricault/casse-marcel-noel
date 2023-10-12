@@ -1,4 +1,49 @@
-{{ form_start(form) }}
+{{ form_start(form, {'attr': {'class': 'p-5 bg-white rounded shadow'}}) }}
+
+    <div class="form-group">
+        {{ form_label(form.marque, 'Marque', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.marque, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.marque) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.imageFile, 'Photo du véhicule', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.imageFile, {'attr': {'class': 'form-control-file'}}) }}
+        {{ form_errors(form.imageFile) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.annee, 'Année', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.annee, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.annee) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.satut, 'Statut', {'label_attr': {'class': 'form-label'}}) }}
+        {{ form_widget(form.satut, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(form.satut) }}
+    </div>
+
+    <button type="submit" class="btn btn-dark btn-lg btn-block">{{ button_label|default('Enregistrer') }}</button>
+
+{{ form_end(form) }}
+
+{% block stylesheets %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .form-control {
+            border-radius: 0;
+        }
+        .btn-primary {
+            border-radius: 0;
+        }
+        .bg-white {
+            border: 1px solid #ccc;
+        }
+    </style>
+{% endblock %}
+
+{# {{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form) }} #}

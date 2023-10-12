@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import App from "./js/App";
 import Password from "./js/PasswordToggle";
 import HomePage from "./js/HomePage";
+import VehiculePage from "./js/VehiculesPage";
 const root = document.getElementById("root");
 if (root) {
   const reactRoot = createRoot(root);
@@ -17,4 +18,9 @@ const home = document.getElementById("react-root");
 if (home) {
   const reactRoot = createRoot(home);
   reactRoot.render(<HomePage />);
+}
+const vehicule = document.getElementById("vehicules");
+if (vehicule) {
+  const reactRoot = createRoot(vehicule);
+  reactRoot.render(<VehiculePage />);
 }

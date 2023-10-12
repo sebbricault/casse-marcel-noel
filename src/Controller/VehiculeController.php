@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/vehicule')]
 class VehiculeController extends AbstractController
@@ -17,10 +18,50 @@ class VehiculeController extends AbstractController
     #[Route('/', name: 'app_vehicule_index', methods: ['GET'])]
     public function index(VehiculeRepository $vehiculeRepository): Response
     {
+       
         return $this->render('vehicule/index.html.twig', [
             'vehicules' => $vehiculeRepository->findAll(),
         ]);
     }
+    #[Route('/api/vehicules', name: 'api_vehicules', methods: ['GET'])]
+    public function apiIndex(VehiculeRepository $vehiculeRepository): JsonResponse
+    {
+        $vehicules = $vehiculeRepository->findAll();
+        $data = [];
+
+        foreach ($vehicules as $vehicule) {
+            $data[] = [
+                'id' => $vehicule->getId(),
+                'imageName' => $vehicule->getImageName(),
+                'marque' => $vehicule->getMarque(),
+                'annee' => $vehicule->getAnnee(),
+                'statut' => $vehicule->getSatut(),
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+
+    #[Route('/api/last-vehicule', name:'api_last_vehicule', methods:['GET'])]
+    public function getLastVehicule(VehiculeRepository $vehiculeRepository): JsonResponse
+    {
+        $vehicule = $vehiculeRepository->findLastAdded();
+
+        if (!$vehicule) {
+            return new JsonResponse(null, 404);
+        }
+
+        $data = [
+            'id' => $vehicule->getId(),
+            'imageName' => $vehicule->getImageName(),
+            'marque' => $vehicule->getMarque(),
+            'annee' => $vehicule->getAnnee(),
+            'statut' => $vehicule->getSatut(),
+        ];
+
+        return new JsonResponse($data);
+    }
+
 
     #[Route('/new', name: 'app_vehicule_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
