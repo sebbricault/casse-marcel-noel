@@ -96,7 +96,7 @@ const HomePage: React.FC = () => {
               <img
                 src={lastPieceImage ? `/images/vehicule/${lastPieceImage}` : ""}
                 alt="Piéce"
-                width="55%"
+                className="card-img-top"
               />
               <div className="card-body custom-card-body">
                 <h2 className="card-title">
