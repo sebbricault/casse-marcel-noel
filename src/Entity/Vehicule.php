@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\VehiculeRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
@@ -19,7 +21,7 @@ class Vehicule
     #[ORM\Column(type: 'datetime', nullable: true)]
     private ?\DateTimeInterface $updatedAt = null;
 
-    
+ 
 
     #[ORM\Column(length: 255)]
     private ?string $marque = null;
@@ -35,6 +37,14 @@ class Vehicule
 
     #[ORM\Column(length: 255)]
     private ?string $satut = null;
+
+    #[ORM\OneToMany(mappedBy: 'id_vehicule', targetEntity: Piece::class)]
+    private Collection $pieces;
+
+    public function __construct()
+    {
+        $this->pieces = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,7 +63,10 @@ class Vehicule
 
         return $this;
     }
-
+    public function __toString(): string
+    {
+        return $this->getMarque() . ' ' . $this->getAnnee(); // ou toute autre propriété que vous souhaitez utiliser pour représenter le véhicule comme une chaîne
+    }
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
      * of 'UploadedFile' is injected into this setter to trigger the update. If this
@@ -108,6 +121,36 @@ class Vehicule
     public function setSatut(string $satut): static
     {
         $this->satut = $satut;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Piece>
+     */
+    public function getPieces(): Collection
+    {
+        return $this->pieces;
+    }
+
+    public function addPiece(Piece $piece): static
+    {
+        if (!$this->pieces->contains($piece)) {
+            $this->pieces->add($piece);
+            $piece->setIdVehicule($this);
+        }
+
+        return $this;
+    }
+
+    public function removePiece(Piece $piece): static
+    {
+        if ($this->pieces->removeElement($piece)) {
+            // set the owning side to null (unless already changed)
+            if ($piece->getIdVehicule() === $this) {
+                $piece->setIdVehicule(null);
+            }
+        }
 
         return $this;
     }
