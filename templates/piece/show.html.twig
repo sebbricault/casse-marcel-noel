@@ -3,11 +3,16 @@
 {% block title %}Piece{% endblock %}
 
 {% block body %}
-    <h1>Piece</h1>
-
-    <table class="table">
-        <tbody>
-            <tr>
+ <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-6">
+                <img src="{{ asset('images/vehicule/' ~ piece.imageName) }}" alt="Véhicule Image" class="img-fluid rounded shadow">
+            </div>
+            <div class="col-md-6">
+                <h1 class="mb-4">{{ piece.nom }} {{ piece.idVehicule.marque }}</h1>
+                <table class="table table-bordered">
+                    <tbody>
+                       <tr>
                 <th>Id</th>
                 <td>{{ piece.id }}</td>
             </tr>
@@ -20,19 +25,30 @@
                 <td>{{ piece.Description }}</td>
             </tr>
             <tr>
-                <th>Quantite_en_stock</th>
+                <th>stock</th>
                 <td>{{ piece.QuantiteEnStock }}</td>
             </tr>
             <tr>
                 <th>Prix</th>
-                <td>{{ piece.prix }}</td>
+                <td>{{ piece.prix }} €</td>
             </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_piece_index') }}">back to list</a>
-
-    <a href="{{ path('app_piece_edit', {'id': piece.id}) }}">edit</a>
-
-    {{ include('piece/_delete_form.html.twig') }}
+                    </tbody>
+                </table>
+                <a href="{{ path('app_piece_index') }}" class="btn btn-secondary mb-2">Retour à la liste</a>
+                <a href="{{ path('app_piece_edit', {'id': piece.id}) }}" class="btn btn-primary mb-2">Éditer</a>
+                {{ include('piece/_delete_form.html.twig', {'button_class': 'btn-danger mb-2'}) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block stylesheets %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .table th, .table td {
+            border-top: none;
+        }
+        .btn {
+            border-radius: 0;
+        }
+    </style>
 {% endblock %}

@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/piece')]
 class PieceController extends AbstractController
@@ -21,7 +22,45 @@ class PieceController extends AbstractController
             'pieces' => $pieceRepository->findAll(),
         ]);
     }
+    #[Route('/api/piece', name: 'api_piece', methods: ['GET'])]
+    public function apiIndex(PieceRepository $pieceRepository): JsonResponse
+    {
+        $pieces = $pieceRepository->findAll();
+        $data = [];
 
+        foreach ($pieces as $piece) {
+            $data[] = [
+                'id' => $piece->getId(),
+                'imageName' => $piece->getImageName(),
+                'nom' => $piece->getNom(),
+                'description' => $piece->getDescription(),
+                'stock' => $piece->getQuantiteEnStock(),
+                'prix' => $piece->getPrix()
+            ];
+        }
+
+        return new JsonResponse($data);
+    }
+    #[Route('/api/last-Piece', name:'api_last_Piece', methods:['GET'])]
+    public function getLastPiece(PieceRepository $pieceRepository): JsonResponse
+    {
+        $piece = $pieceRepository->findLastAdded();
+
+        if (!$piece) {
+            return new JsonResponse(null, 404);
+        }
+
+        $data = [
+            'id' => $piece->getId(),
+            'imageName' => $piece->getImageName(),
+            'nom' => $piece->getNom(),
+            'description' => $piece->getDescription(),
+            'stock' => $piece->getQuantiteEnStock(),
+            'prix' => $piece->getPrix()
+        ];
+
+        return new JsonResponse($data);
+    }
     #[Route('/new', name: 'app_piece_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
