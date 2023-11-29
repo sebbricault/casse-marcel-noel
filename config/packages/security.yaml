@@ -16,9 +16,9 @@ security:
       provider: app_user_provider
       entry_point: App\Security\UsersAuthenticator
       custom_authenticator: App\Security\UsersAuthenticator # Corrigez l'indentation ici
-      # form_login:
-      #   login_path: app_login
-      #   check_path: app_login
+      form_login:
+        login_path: app_login
+        check_path: app_login
       logout:
         path: app_logout
       # remember_me:
@@ -27,10 +27,6 @@ security:
       #   path: /
       #   always_remember_me: true
   access_control:
-    # - { path: ^/admin, roles: ROLE_ADMIN }
-    # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-    # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-
     - { path: ^/vehicule, roles: ROLE_USER }
     - { path: ^/piece, roles: ROLE_USER }
 
